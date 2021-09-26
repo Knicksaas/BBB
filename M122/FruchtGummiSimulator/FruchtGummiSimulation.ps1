@@ -2,10 +2,8 @@
 # Datei:            FruchtGummiSimulation.ps1
 # Datum:            10.09.2021
 # Ersteller:        Niklas Sidler & Kylian Lichtensteiger (BSI AG)
-# Version:          69.4.20
+# Version:          1.1
 # Änderungen:       10.09.2021/CSV Speicher Bug behoben
-# Beschreibung:
-# 69
 # --------------------------------------------
 [String]$global:CSVBuffer = """Config Index"",""Path Length"",""Amount Fruit Gum Sorts"",""Amount Fruit Gums per Sort"",""AVG Throws"",""Iterations"",""Player Win Chance""`n`r"
 [Int32]$global:CSVLineCount = 1
@@ -150,7 +148,7 @@ function readConfigInput {
 }
 
 Clear-Host
-Write-Host "Welcum to the best Fruit Gum Goat Simulator v.69.4.20`n"
+Write-Host "Welcome to the best Fruit Gum Simulator`n"
 do
 {
     $arr = readConfigInput
