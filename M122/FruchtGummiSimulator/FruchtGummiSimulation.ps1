@@ -147,15 +147,32 @@ function readConfigInput {
     return @($AmountFruitGumSorts,$AmountFruitGumsPerSort,$LengthPath,$AmountIterations)
 }
 
+function addAutomaticConfigurations {
+    # Gums per sort between 2 and 10
+    for ($s = 2; $s -lt 11; $s++) {
+        # Gohst path length between 6 and 30
+        for ($pl = 6; $pl-lt 31; $pl++){
+            Write-Host "Playing game with " $s " gums per sort and a path length of " $pl "..."
+            playNGames $pl $s 5 100
+        }
+    }
+    Write-Host "Done, saving to file..."
+    saveBufferToCSV
+}
+
 Clear-Host
 Write-Host "Welcome to the best Fruit Gum Simulator`n"
-do
-{
-    $arr = readConfigInput
-    playNGames $arr[2] $arr[1] $arr[0] $arr[3]
-    Write-Host $CSVBuffer
-    $choosen = readInteger "Chose Option:`n1 Add new Configuration`n2 Close without saving CSV`n3 Close with saving CSV`n" 1 3
-} while ($choosen -eq 1)
-if ($choosen -eq 3) {
-    saveBufferToCSV
+if(readInteger "Do you want to get configurations automatically? `n1: yes `n2: no`n" 1 2 -eq 1){
+    addAutomaticConfigurations
+} else {
+    do
+    {
+        $arr = readConfigInput
+        playNGames $arr[2] $arr[1] $arr[0] $arr[3]
+        Write-Host $CSVBuffer
+        $choosen = readInteger "Chose Option:`n1 Add new Configuration`n2 Close without saving CSV`n3 Close with saving CSV`n" 1 3
+    } while ($choosen -eq 1)
+    if ($choosen -eq 3) {
+        saveBufferToCSV
+    }
 }
